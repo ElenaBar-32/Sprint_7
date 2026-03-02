@@ -1,5 +1,6 @@
 package steps;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import model.CourierLoginModel;
 import model.CourierModel;
@@ -9,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class CourierSteps {
 
-
+    @Step("Send POST request to /api/v1/courier")
     public static Response createCourier(CourierModel courier) {
         return given()
                 .log().all()
@@ -21,7 +22,7 @@ public class CourierSteps {
                 .extract().response();
 
     }
-
+    @Step("Send POST request to /api/v1/courier/login")
     public static Response loginCourier(CourierLoginModel login) {
         return given()
                 .log().all()
@@ -32,7 +33,7 @@ public class CourierSteps {
                 .then()
                 .extract().response();
     }
-
+    @Step("Send POST request to /api/v1/courier/:id")
     public static void deleteCourierById(Integer courierId) {
         given()
                 .log().all()
