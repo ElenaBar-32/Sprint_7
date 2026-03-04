@@ -2,12 +2,12 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import model.OrderModel;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.apache.http.HttpStatus.*;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static steps.OrderSteps.cancelOrder;
 import static steps.OrderSteps.createOrder;
@@ -27,6 +27,7 @@ public class CreateOrderTest extends BaseApiTest {
     private final String comment;
     private final String[] color;
 
+    String track;
 
     public CreateOrderTest(String name, String lastName, String address, String metroStation,
                            String telephone, Number rentTime, String deliveryDate, String comment, String[] color) {
@@ -67,12 +68,13 @@ public class CreateOrderTest extends BaseApiTest {
                 .path("track")
                 .toString();
 
+    }
 
-        cancelOrder(track)
-                .then()
-                .log().all()
-                .statusCode(SC_OK)
-                .body("ok", equalTo(true));
+    @After
+    public void cancel() {
+        if (track != null) {
+            cancelOrder(track);
+        }
     }
 }
 

@@ -21,7 +21,7 @@ public class OrderSteps {
                 .extract().response();
 
     }
-    @Step("Send PUT request to cancel order with track: {track}")
+    @Step("Send GET request to  get order")
     public static Response listOrder() {
         return given()
                 .log().all()
@@ -31,7 +31,7 @@ public class OrderSteps {
                 .then()
                 .extract().response();
     }
-
+    @Step("Send PUT request to cancel order with track: {track}")
     public static Response cancelOrder(String track) {
         return given()
                 .log().all()
